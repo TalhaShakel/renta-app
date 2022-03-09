@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:renta/pages/login_page.dart';
-import 'package:renta/pages/welcome.dart';
+import 'package:renta/screens/welcome.dart';
 
-import 'package:renta/utils/color.dart';
+Color orangeColors = Color(0xFF1B6A65);
+Color orangeLightColors = Color(0xFF1B6A65);
 
 class SplashPage extends StatefulWidget {
   const SplashPage({key}) : super(key: key);

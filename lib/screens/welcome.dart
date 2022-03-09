@@ -45,12 +45,12 @@
 //   }
 // }
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:renta/pages/login_page.dart';
 
-import 'package:renta/utils/color.dart';
-import 'package:renta/widgets/btn_widget.dart';
+import '../widgets/btn_widget.dart';
+import 'login.dart';
 
 class SplashPage2 extends StatefulWidget {
   const SplashPage2({key}) : super(key: key);
@@ -73,6 +73,7 @@ class _SplashPage2State extends State<SplashPage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body:
             // Container(
             //   decoration: BoxDecoration(
@@ -83,28 +84,29 @@ class _SplashPage2State extends State<SplashPage2> {
             //   ),
             //   child:
             SingleChildScrollView(
-      child: Column(
-        children: [
-          Image.asset(
-            "assets/images/welcome.gif",
-            height: MediaQuery.of(context).size.height * 0.8,
+          child: Column(
+            children: [
+              Image.asset(
+                "assets/images/welcome.gif",
+                fit: BoxFit.contain,
+                height: MediaQuery.of(context).size.height * 0.8,
+              ),
+              ButtonWidget(
+                btnText: "Get Started",
+                onClick: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => login()));
+                },
+              )
+              // ElevatedButton(
+              //     onPressed: () {
+              //       Navigator.push(context,
+              //           MaterialPageRoute(builder: (context) => LoginPage()));
+              //     },
+              //     child: Text("data"))
+            ],
           ),
-          ButtonWidget(
-            btnText: "Get Started",
-            onClick: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginPage()));
-            },
-          )
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Navigator.push(context,
-          //           MaterialPageRoute(builder: (context) => LoginPage()));
-          //     },
-          //     child: Text("data"))
-        ],
-      ),
-    ));
+        ));
     // );
   }
 }

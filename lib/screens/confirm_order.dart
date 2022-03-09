@@ -1,6 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:renta/models/newcarmodel.dart' as car;
+import 'package:renta/screens/splash_page.dart';
 
 import 'time_location.dart';
 
@@ -113,26 +114,28 @@ class ConfirmOrder extends StatelessWidget {
   String? pp2;
   String? package;
   String pack2;
+  String img;
 
   ConfirmOrder(
-      {required this.car2,
+      {required this.img,
+      required this.car2,
       required this.pack2,
       this.address,
       this.package,
       this.pp2});
   String url =
-      "https://renta-car-app-backend.herokuapp.com/api/v1/order/create-order";
+      "https://rentacar1311.azurewebsites.net/api/v1/order/create-order";
 
   postdata() async {
     try {
       final response = await post(Uri.parse(url), body: {
-        "message": "valid",
+        // "message": "valid",
         "userId": "6203ebedb94c608b4ff392dc",
         "carId": "$car2",
         "carColor": "White",
         "packageName": "$pack2",
         "orderedAddress": "$address",
-        "forWedding": wedyes ? "Yes" : "No",
+        // "forWedding": wedyes ? "Yes" : "No",
       });
       print(" ${response.body} Data is post");
     } catch (e) {
@@ -158,6 +161,15 @@ class ConfirmOrder extends StatelessWidget {
               children: [
                 ///Fuel Charges:  All other Cars are from Same Level of Fuel to Same Level of Fuel
                 ///Important note:
+                Center(
+                  child: Image.network(
+                    img.toString(),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    fit: BoxFit.contain,
+                    // height: 11,
+                  ),
+                  // ),
+                ),
                 Text(
                   car2.toString(),
                   style: TextStyle(
@@ -255,49 +267,90 @@ Add On Charges will be applied for Extra Per Hour
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "Package: $pack2",
+                          """Package: $pack2
+Price: $pp2
+Delivery Date: ${selectedDate}
+Address: ${address} """,
                           style: TextStyle(
                               letterSpacing: 1, fontWeight: FontWeight.bold),
                         ),
+                        // Text(
+                        //   "",
+                        //   style: TextStyle(
+                        //       letterSpacing: 1, fontWeight: FontWeight.bold),
+                        // ),
+                        // Text(
+                        //   "",
+                        //   style: TextStyle(
+                        //       letterSpacing: 1, fontWeight: FontWeight.bold),
+                        // ),
+                        // Text(
+                        //   "",
+                        //   style: TextStyle(
+                        //       letterSpacing: 1, fontWeight: FontWeight.bold),
+                        // ),
                         Text(
-                          "Price: $pp2",
+                          wedyes
+                              ? """For Wedding: Yes """
+                              : """For Wedding: No """,
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                              letterSpacing: 1, fontWeight: FontWeight.bold),
+                              fontSize: 16,
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          "Delivery Date: ${selectedDate}",
-                          style: TextStyle(
-                              letterSpacing: 1, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Address: ${address} ",
-                          style: TextStyle(
-                              letterSpacing: 1, fontWeight: FontWeight.bold),
-                        ),
-                        wedyes
-                            ? Text(
-                                "For Wedding: Yes ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : Text(
-                                "For Wedding: No ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                        // Text(
+                        //   "",
+                        //   style: TextStyle(
+                        //       fontSize: 16,
+                        //       letterSpacing: 1,
+                        //       fontWeight: FontWeight.bold),
+                        // ),
                       ],
                     ),
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: GestureDetector(
+                    onTap: () {
                       postdata();
                     },
-                    child: Text("Post"))
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: orangeColors,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Place Order',
+                                  style: const TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                  // recognizer: TapGestureRecognizer()
+                                  // onTap = () {
+                                  // print("months");
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // ElevatedButton(
+                //     onPressed: () {
+                //       postdata();
+                //     },
+                //     child: Text("Post"))
               ]),
         ),
       ),

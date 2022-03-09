@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:renta/pages/confirm_order.dart';
+import 'package:renta/screens/splash_page.dart';
 
-import '../widgets/constants.dart';
+import 'confirm_order.dart';
 
 DateTime selectedDate = DateTime.now();
 bool wedyes = false;
@@ -11,13 +11,15 @@ bool wedno = false;
 
 class Time_location extends StatefulWidget {
   String car1;
-  String price;
-  String pack;
+  String? price;
+  String? pack;
+  String img;
 
   Time_location({
-    required this.pack,
+    required this.img,
+    this.pack,
     required this.car1,
-    required this.price,
+    this.price,
   });
 
   @override
@@ -116,46 +118,66 @@ class _Time_locationState extends State<Time_location> {
                 ],
               ),
             ),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Go To Confirm Order',
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.black),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // timelocate();
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ConfirmOrder(
-                                    pp2: widget.price,
-                                    car2: widget.car1,
-                                    address: location_Pick_Up.text,
-                                    pack2: widget.pack,
-                                  ),
-                                ),
-                              );
-                            },
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ConfirmOrder(
+                              img: widget.img,
+                              car2: widget.car1,
+                              pack2: widget.pack.toString())));
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: orangeColors,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Confirm Order',
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.white),
+                              // recognizer: TapGestureRecognizer()
+                              // onTap = () {
+                              // print("months");
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
+              // Container(
+              //     height: 50,
+              //     decoration: BoxDecoration(
+              //       color: orangeColors,
+              //       borderRadius: const BorderRadius.all(
+              //         Radius.circular(15),
+              //       ),
+              //     ),
+              //     child: ElevatedButton(
+              //         onPressed: () {
+              //           Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (context) => ConfirmOrder(
+              //                       img: widget.img,
+              //                       car2: widget.car1,
+              //                       pack2: widget.pack.toString())));
+              //         },
+              //         child: Text("Conform order"))),
             ),
             // Text("${location_Pick_Up.text}${selectedDate}${selectedDate}"),
           ],
